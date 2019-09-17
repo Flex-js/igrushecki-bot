@@ -4,7 +4,8 @@
   "description": "Bot for reposts from https://vk.com/avtomat_toys",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -33,8 +34,11 @@
   },
   "dependencies": {
     "body-parser": "1.19.0",
+    "dotenv": "8.1.0",
     "express": "4.17.1",
     "express-validator": "6.2.0",
-    "morgan": "1.9.1"
+    "morgan": "1.9.1",
+    "socks5-https-client": "^1.2.1",
+    "telegraf": "3.32.0"
   }
 }
