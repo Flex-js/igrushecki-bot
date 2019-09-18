@@ -24,11 +24,6 @@
   },
   "homepage": "https://github.com/Flex-js/igrushecki-bot#readme",
   "devDependencies": {
-    "@babel/cli": "7.2.3",
-    "@babel/core": "7.3.4",
-    "@babel/polyfill": "7.6.0",
-    "@babel/preset-env": "7.3.4",
-    "@babel/register": "7.6.0",
     "eslint": "5.14.1",
     "eslint-plugin-import": "2.16.0",
     "nodemon": "1.18.10"

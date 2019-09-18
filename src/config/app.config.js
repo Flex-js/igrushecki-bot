@@ -1,7 +1,11 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-export const PORT = process.env.PORT || 3000;
-export const BOT_TOKEN = process.env.BOT_TOKEN || '';
-export const SECURE_TOKEN = process.env.SECURE_TOKEN || '';
+const PORT = process.env.PORT || 3000;
+const BOT_TOKEN = process.env.BOT_TOKEN || '';
+const SECURE_TOKEN = process.env.SECURE_TOKEN || '';
+
+module.exports = {
+	PORT, BOT_TOKEN, SECURE_TOKEN
+};
