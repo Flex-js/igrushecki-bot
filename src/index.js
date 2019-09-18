@@ -13,9 +13,7 @@ const socksAgent = new HttpsProxyAgent({
 const app = express();
 initMiddlewares(app);
 
-let state = {
-	id: ''
-};
+let state = [];
 
 const bot = new Telegraf(BOT_TOKEN, {
 	telegram: {
@@ -23,23 +21,29 @@ const bot = new Telegraf(BOT_TOKEN, {
 	}
 });
 
+const getCurrentData = () => axios.get(`https://api.vk.com/method/wall.get?owner_id=-186049874&v=5.101&access_token=${SECURE_TOKEN}`);
+
 const compareData = (ctx) => {
 	axios.get(`https://api.vk.com/method/wall.get?owner_id=-186049874&count=2&v=5.101&access_token=${SECURE_TOKEN}`)
 		.then((res) => {
 			const lastPost = res.data.response.items.find(item => !item.is_pinned);
 
-			if (lastPost.id !== state.id && state.id !== '') {
+			if (!state.find(({id}) => lastPost.id === id)) {
 				ctx.reply(`https://vk.com/avtomat_toys?w=wall${lastPost.owner_id}_${lastPost.id}`);
 
-				state = lastPost;
-			} else if (state.id === '') {
-				state = lastPost;
+				state.push(lastPost);
+				axios.put('https://igrushechki-257a5.firebaseio.com/posts.json', state);
 			}
-
 		});
 };
 
-bot.start(ctx => setInterval(() => compareData(ctx), 2000));
+bot.start(async ctx => {
+	const posts = await getCurrentData();
+	await axios.put('https://igrushechki-257a5.firebaseio.com/posts.json', posts.data.response.items);
+	state = posts.data.response.items;
+
+	setInterval(() => compareData(ctx), 2000);
+});
 bot.launch();
 
 app.listen(PORT, '0.0.0.0', error => {
