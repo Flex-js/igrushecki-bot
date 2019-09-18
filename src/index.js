@@ -1,16 +1,21 @@
 import express from 'express';
-import {PORT, BOT_TOKEN} from './config/app.config';
+import {PORT, BOT_TOKEN, ACCESS_TOKEN} from './config/app.config';
 import initMiddlewares from './middlewares/app.middlewares.js';
 import Telegraf from 'telegraf';
-import SocksAgent from 'socks5-https-client/lib/Agent';
+import HttpsProxyAgent from 'https-proxy-agent';
+import axios from 'axios';
 
-const socksAgent = new SocksAgent({
-	socksHost: '173.44.34.106',
-	socksPort: '34276'
+const socksAgent = new HttpsProxyAgent({
+	host: '51.38.71.101',
+	port: '8080'
 });
 
 const app = express();
 initMiddlewares(app);
+
+/* axios.get(`https://api.vk.com/method/friends.getOnline?v=5.52&access_token=${ACCESS_TOKEN}`).then((res) => {
+	console.log(res);
+}); for activation add a ACCESS_TOKEN to .env file */
 
 const bot = new Telegraf(BOT_TOKEN, {
 	telegram: {
@@ -19,7 +24,9 @@ const bot = new Telegraf(BOT_TOKEN, {
 });
 
 bot.start(ctx => ctx.reply('Welcome'));
-bot.catch(err => console.log('Ooops', err));
+bot.catch(err => {
+	console.log('Ooops', err);
+});
 bot.help(ctx => ctx.reply('Send me a sticker'));
 bot.on('sticker', ctx => ctx.reply('👍'));
 bot.hears('hi', ctx => ctx.reply('Hey there'));
