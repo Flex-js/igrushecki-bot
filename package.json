@@ -42,5 +42,8 @@
     "https-proxy-agent": "2.2.2",
     "morgan": "1.9.1",
     "telegraf": "3.32.0"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
