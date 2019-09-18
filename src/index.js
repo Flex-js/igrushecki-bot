@@ -1,5 +1,5 @@
 import express from 'express';
-import {PORT, BOT_TOKEN, ACCESS_TOKEN} from './config/app.config';
+import {PORT, BOT_TOKEN, SECURE_TOKEN} from './config/app.config';
 import initMiddlewares from './middlewares/app.middlewares.js';
 import Telegraf from 'telegraf';
 import HttpsProxyAgent from 'https-proxy-agent';
@@ -13,9 +13,9 @@ const socksAgent = new HttpsProxyAgent({
 const app = express();
 initMiddlewares(app);
 
-/* axios.get(`https://api.vk.com/method/friends.getOnline?v=5.52&access_token=${ACCESS_TOKEN}`).then((res) => {
-	console.log(res);
-}); for activation add a ACCESS_TOKEN to .env file */
+let state = {
+	id: ''
+};
 
 const bot = new Telegraf(BOT_TOKEN, {
 	telegram: {
@@ -23,13 +23,23 @@ const bot = new Telegraf(BOT_TOKEN, {
 	}
 });
 
-bot.start(ctx => ctx.reply('Welcome'));
-bot.catch(err => {
-	console.log('Ooops', err);
-});
-bot.help(ctx => ctx.reply('Send me a sticker'));
-bot.on('sticker', ctx => ctx.reply('👍'));
-bot.hears('hi', ctx => ctx.reply('Hey there'));
+const compareData = (ctx) => {
+	axios.get(`https://api.vk.com/method/wall.get?owner_id=-186049874&count=2&v=5.101&access_token=${SECURE_TOKEN}`)
+		.then((res) => {
+			const lastPost = res.data.response.items.find(item => !item.is_pinned);
+
+			if (lastPost.id !== state.id && state.id !== '') {
+				ctx.reply(`https://vk.com/avtomat_toys?w=wall${lastPost.owner_id}_${lastPost.id}`);
+
+				state = lastPost;
+			} else if (state.id === '') {
+				state = lastPost;
+			}
+
+		});
+};
+
+bot.start(ctx => setInterval(() => compareData(ctx), 2000));
 bot.launch();
 
 app.listen(PORT, '0.0.0.0', error => {
