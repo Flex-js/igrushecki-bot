@@ -8,6 +8,7 @@ const socksAgent = new HttpsProxyAgent({
 	port: '8080'
 });
 
+let isStarted = false;
 let state = [];
 
 const bot = new Telegraf(BOT_TOKEN, {
@@ -33,12 +34,16 @@ const compareData = (ctx) => {
 };
 
 bot.start(async ctx => {
-	console.log('bot is started');
-	const posts = await getCurrentData();
-	await axios.put('https://igrushechki-257a5.firebaseio.com/posts.json', posts.data.response.items);
-	state = posts.data.response.items;
+	if (!isStarted) {
+		console.log('bot is started');
+		const posts = await getCurrentData();
+		await axios.put('https://igrushechki-257a5.firebaseio.com/posts.json', posts.data.response.items);
+		state = posts.data.response.items;
 
-	setInterval(() => compareData(ctx), 2000);
+		setInterval(() => compareData(ctx), 2000);
+
+		isStarted = true;
+	}
 });
 
 bot.launch();
