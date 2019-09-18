@@ -40,7 +40,7 @@ bot.start(async ctx => {
 		await axios.put('https://igrushechki-257a5.firebaseio.com/posts.json', posts.data.response.items);
 		state = posts.data.response.items;
 
-		setInterval(() => compareData(ctx), 2000);
+		setInterval(() => compareData(ctx), 60000);
 
 		isStarted = true;
 	}
