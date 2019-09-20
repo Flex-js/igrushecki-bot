@@ -30,20 +30,26 @@ const compareData = (ctx) => {
 				state.push(lastPost);
 				axios.put('https://igrushechki-257a5.firebaseio.com/posts.json', state);
 			}
-		});
+		})
+		.catch(e => console.error(e));
 };
 
 bot.start(async ctx => {
-	if (!isStarted) {
-		console.log('bot is started');
-		const posts = await getCurrentData();
-		await axios.put('https://igrushechki-257a5.firebaseio.com/posts.json', posts.data.response.items);
-		state = posts.data.response.items;
-
-		setInterval(() => compareData(ctx), 60000);
-
-		isStarted = true;
+	try {
+		if (!isStarted) {
+			console.log('bot is started');
+			const posts = await getCurrentData();
+			await axios.put('https://igrushechki-257a5.firebaseio.com/posts.json', posts.data.response.items);
+			state = posts.data.response.items;
+	
+			setInterval(() => compareData(ctx), 60000);
+	
+			isStarted = true;
+		}
+	} catch (error) {
+		console.error(error);
 	}
 });
+bot.command('takoy_or', (ctx) => ctx.reply('😁'));
 
 bot.launch();
