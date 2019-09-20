@@ -2,8 +2,9 @@ const {BOT_TOKEN, SECURE_TOKEN} = require('./src/config/app.config');
 const Telegraf = require('telegraf');
 const HttpsProxyAgent = require('https-proxy-agent');
 const axios = require('axios');
+const Telegram = require('telegraf/telegram');
 
-const socksAgent = new HttpsProxyAgent({
+const httpAgent = new HttpsProxyAgent({
 	host: '51.38.71.101',
 	port: '8080'
 });
@@ -13,7 +14,7 @@ let state = [];
 
 const bot = new Telegraf(BOT_TOKEN, {
 	telegram: {
-		agent: socksAgent
+		agent: httpAgent
 	}
 });
 
@@ -50,6 +51,9 @@ bot.start(async ctx => {
 		console.error(error);
 	}
 });
+
 bot.command('takoy_or', (ctx) => ctx.reply('😁'));
+bot.command('zhest', (ctx) => ctx.replyWithSticker('CAADAgADAgADdZiNCLY__XALsvwIFgQ'));
+bot.command('takoy_clown', (ctx) => ctx.replyWithSticker('CAADAgADAQADdZiNCIOwAx8aYplWFgQ'));
 
 bot.launch();
