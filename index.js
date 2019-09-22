@@ -2,7 +2,8 @@ const {BOT_TOKEN, SECURE_TOKEN} = require('./src/config/app.config');
 const Telegraf = require('telegraf');
 const HttpsProxyAgent = require('https-proxy-agent');
 const axios = require('axios');
-const Telegram = require('telegraf/telegram');
+const initCommandHandlers = require('./src/initCommandHandlers');
+const initTextHandlers = require('./src/initTextHandlers');
 
 const httpAgent = new HttpsProxyAgent({
 	host: '51.38.71.101',
@@ -52,8 +53,7 @@ bot.start(async ctx => {
 	}
 });
 
-bot.command('takoy_or', (ctx) => ctx.reply('😁'));
-bot.command('zhest', (ctx) => ctx.replyWithSticker('CAADAgADAgADdZiNCLY__XALsvwIFgQ'));
-bot.command('takoy_clown', (ctx) => ctx.replyWithSticker('CAADAgADAQADdZiNCIOwAx8aYplWFgQ'));
+initCommandHandlers(bot);
+initTextHandlers(bot);
 
 bot.launch();
