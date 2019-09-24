@@ -6,8 +6,8 @@ const initCommandHandlers = require('./src/initCommandHandlers');
 const initTextHandlers = require('./src/initTextHandlers');
 
 const httpAgent = new HttpsProxyAgent({
-	host: '51.38.71.101',
-	port: '8080'
+	host: '77.48.22.59',
+	port: '51359'
 });
 
 let isStarted = false;
