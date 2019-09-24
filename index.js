@@ -1,23 +1,13 @@
 const {BOT_TOKEN, SECURE_TOKEN} = require('./src/config/app.config');
 const Telegraf = require('telegraf');
-const HttpsProxyAgent = require('https-proxy-agent');
 const axios = require('axios');
 const initCommandHandlers = require('./src/initCommandHandlers');
 const initTextHandlers = require('./src/initTextHandlers');
 
-const httpAgent = new HttpsProxyAgent({
-	host: '77.48.22.59',
-	port: '51359'
-});
-
 let isStarted = false;
 let state = [];
 
-const bot = new Telegraf(BOT_TOKEN, {
-	telegram: {
-		agent: httpAgent
-	}
-});
+const bot = new Telegraf(BOT_TOKEN);
 
 const getCurrentData = () => axios.get(`https://api.vk.com/method/wall.get?owner_id=-186049874&v=5.101&access_token=${SECURE_TOKEN}`);
 
