@@ -7,9 +7,12 @@ const initCommandHandlers = (bot) => {
 	bot.command('wash', async ctx => {
 		const reply = ctx.update.message.reply_to_message;
 		
-		if (reply) {
+		if (reply && !reply.from.is_bot) {
 			await ctx.reply('💦💦💦', {reply_to_message_id: reply.message_id});
 			ctx.reply('ПШШШШ ПШШШШ');
+		} else if (reply && reply.from.is_bot) {
+			await ctx.reply('💦💦💦', {reply_to_message_id: ctx.message.message_id});
+			ctx.reply('Хотел умыть бота, а умылся сам, АХАХАХХА');
 		} else {
 			ctx.reply(
 				'_Используйте эту команду в ответ на сообщение, чтобы умыть собеседника_',
