@@ -31,7 +31,13 @@ const initTextHandlers = (bot) => {
 			ctx.reply('https://www.youtube.com/watch?v=muEEtWI2CKc', replyToMessage);
 		} else if (text.includes('?')) {
 			ctx.replyWithSticker(STICKER_WASHING, replyToMessage);
-		} else if (text.toUpperCase() === text && Number.isNaN(+text) && shouldAnswerToCaps) {
+		} else if (
+			text.toUpperCase() === text
+			&& /[А-ЯA-ZЁ]/.test(text)
+			&& text.length > 1
+			&& Number.isNaN(+text)
+			&& shouldAnswerToCaps
+		) {
 			ctx.reply('ТЫ ЧЕ ОРЕШЬ, МЕШОЧЕК?', replyToMessage);
 
 			shouldAnswerToCaps = false;
