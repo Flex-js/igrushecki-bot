@@ -1,4 +1,4 @@
-const {STICKER_CLOWN, STICKER_WASHING} = require('./stickerConstants');
+const {STICKER_CLOWN, STICKER_WASHING, STICKER_STAS} = require('./stickerConstants');
 const {getRandomInt} = require('./helpers');
 
 let shouldAnswerToCaps = true;
@@ -22,7 +22,7 @@ const initTextHandlers = (bot) => {
 			'иди пиши фронт',
 			'это кстати правда'
 		];
-		
+
 		if (lowerCaseText.includes('привет')) {
 			ctx.reply('Привет, лошок', replyToMessage);
 		} else if (lowerCaseText.includes('клоун')) {
@@ -31,7 +31,9 @@ const initTextHandlers = (bot) => {
 			ctx.reply('https://www.youtube.com/watch?v=muEEtWI2CKc', replyToMessage);
 		} else if (text.includes('?')) {
 			ctx.replyWithSticker(STICKER_WASHING, replyToMessage);
-		} else if (
+		} else if (lowerCaseText.includes('стас')) {
+			ctx.replyWithSticker(STICKER_STAS, replyToMessage);
+		}  else if (
 			text.toUpperCase() === text
 			&& /[А-ЯA-ZЁ]/.test(text)
 			&& text.length > 1
