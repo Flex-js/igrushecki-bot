@@ -1,23 +1,10 @@
 const {STICKER_CLOWN, STICKER_WASHING, STICKER_STAS} = require('./stickerConstants');
 const {getRandomInt} = require('./helpers');
-
-const phrases = [
-	'я согласен',
-	'я не согласен',
-	'ну это, конечно, полный отстой',
-	'тебе бы во Flex.js контрибьютить',
-	'такой клоун',
-	'с кем ты говоришь?',
-	'троллинг будет происходить 3 недели',
-	'иди тащи игрушечку',
-	'иди пиши бэк',
-	'иди пиши фронт',
-	'это кстати правда'
-];
+const {phrases} = require('./constants');
 let shouldAnswerToCaps = true;
 
-const initTextHandlers = (bot) => {
-	bot.on('text', async ctx => {
+const handlers = {
+	text: async ctx => {
 		const {text} = ctx.message;
 		const lowerCaseText = text.toLowerCase();
 		const replyToMessage = {reply_to_message_id: ctx.message.message_id};
@@ -50,7 +37,13 @@ const initTextHandlers = (bot) => {
 		} else if (Math.random() <= 0.1) { // this condition should always be in the end
 			ctx.reply(phrases[getRandomInt(phrases.length)]);
 		}
-	});
+	}
 };
 
-module.exports = initTextHandlers;
+const initTextHandlers = (bot) => {
+	bot.on('text', handlers.text);
+};
+
+module.exports = {
+	handlers, initTextHandlers
+};
