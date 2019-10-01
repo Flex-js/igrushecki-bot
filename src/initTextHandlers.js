@@ -1,6 +1,19 @@
 const {STICKER_CLOWN, STICKER_WASHING, STICKER_STAS} = require('./stickerConstants');
 const {getRandomInt} = require('./helpers');
 
+const phrases = [
+	'я согласен',
+	'я не согласен',
+	'ну это, конечно, полный отстой',
+	'тебе бы во Flex.js контрибьютить',
+	'такой клоун',
+	'с кем ты говоришь?',
+	'троллинг будет происходить 3 недели',
+	'иди тащи игрушечку',
+	'иди пиши бэк',
+	'иди пиши фронт',
+	'это кстати правда'
+];
 let shouldAnswerToCaps = true;
 
 const initTextHandlers = (bot) => {
@@ -9,19 +22,6 @@ const initTextHandlers = (bot) => {
 		const lowerCaseText = text.toLowerCase();
 		const replyToMessage = {reply_to_message_id: ctx.message.message_id};
 		const ctxMessageReply = ctx.message.reply_to_message;
-		const phrases = [
-			'я согласен',
-			'я не согласен',
-			'ну это, конечно, полный отстой',
-			'тебе бы во Flex.js контрибьютить',
-			'такой клоун',
-			'с кем ты говоришь?',
-			'троллинг будет происходить 3 недели',
-			'иди тащи игрушечку',
-			'иди пиши бэк',
-			'иди пиши фронт',
-			'это кстати правда'
-		];
 
 		if (lowerCaseText.includes('привет')) {
 			ctx.reply('Привет, лошок', replyToMessage);
