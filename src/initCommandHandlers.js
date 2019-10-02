@@ -1,10 +1,10 @@
 const {STICKER_CLOWN, STICKER_ZHEST} = require('./stickerConstants');
 
-const initCommandHandlers = (bot) => {
-	bot.command('takoy_or', ctx => ctx.reply('😁'));
-	bot.command('zhest', ctx => ctx.replyWithSticker(STICKER_ZHEST));
-	bot.command('takoy_clown', ctx => ctx.replyWithSticker(STICKER_CLOWN));
-	bot.command('wash', async ctx => {
+const commands = {
+	takoy_or: ctx => ctx.reply('😁'),
+	zhest: ctx => ctx.replyWithSticker(STICKER_ZHEST),
+	takoy_clown: ctx => ctx.replyWithSticker(STICKER_CLOWN),
+	wash: async ctx => {
 		const reply = ctx.update.message.reply_to_message;
 		
 		if (reply && !reply.from.is_bot) {
@@ -19,7 +19,16 @@ const initCommandHandlers = (bot) => {
 				{parse_mode: 'Markdown', reply_to_message_id: ctx.message.message_id}
 			);
 		}
+	}
+};
+
+const initCommandHandlers = (bot) => {
+	commands.forEach(command => {
+		bot.command(command, commands[command]);
 	});
 };
 
-module.exports = initCommandHandlers;
+module.exports = {
+	commands,
+	initCommandHandlers
+};

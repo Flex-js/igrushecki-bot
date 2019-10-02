@@ -4,7 +4,7 @@
   "description": "Bot for reposts from https://vk.com/avtomat_toys",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "TZ=UTC jest",
     "dev": "NODE_ENV=development nodemon index.js",
     "start": "NODE_ENV=production node index.js"
   },
@@ -26,6 +26,8 @@
   "devDependencies": {
     "eslint": "5.14.1",
     "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jest": "22.17.0",
+    "jest": "24.9.0",
     "nodemon": "1.18.10"
   },
   "dependencies": {

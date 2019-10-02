@@ -4,7 +4,7 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": ["eslint-plugin-import"],
+    "plugins": ["eslint-plugin-import", "jest"],
     "rules": {
 			"indent": ["warn", "tab", {"SwitchCase": 1}],
 			"no-tabs": 0,
@@ -19,6 +19,7 @@
     },
     "env": {
 		"node": true,
-		"es6": true
+		"es6": true,
+		"jest/globals": true
 	}
 }

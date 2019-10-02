@@ -1,8 +1,8 @@
 const {BOT_TOKEN, SECURE_TOKEN} = require('./src/config/app.config');
 const Telegraf = require('telegraf');
 const axios = require('axios');
-const initCommandHandlers = require('./src/initCommandHandlers');
-const initTextHandlers = require('./src/initTextHandlers');
+const {initCommandHandlers} = require('./src/initCommandHandlers');
+const {initTextHandlers} = require('./src/initTextHandlers');
 
 let isStarted = false;
 let state = [];
