@@ -70,3 +70,7 @@ test('should returns random text', async () => {
 
 	expect(phrases).toContain(context.reply.mock.calls[0][0]);
 });
+
+test('it\'s you ---> 🐔', () => {
+	expect(true).toBe(true);
+});
