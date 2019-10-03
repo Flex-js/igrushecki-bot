@@ -23,9 +23,9 @@ const commands = {
 };
 
 const initCommandHandlers = (bot) => {
-	commands.forEach(command => {
+	for (let command in commands) {
 		bot.command(command, commands[command]);
-	});
+	}
 };
 
 module.exports = {
