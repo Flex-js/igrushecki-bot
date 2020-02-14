@@ -7,5 +7,6 @@ Bot for reposts from https://vk.com/avtomat_toys
 |start|запускает бота|bot starts            |
 |takoy_or          |отправляет орущий смайлик           |sends LOL sticker            |
 | takoy_clown        |отправляет такого клоуна|sends clown sticker|
+| clown_detected  | отдает клоунский нос хозяину | helps clown to find his nose |
 | zhest       |отправляет жесть|sends zhest sticker|
 | wash       |используйте в ответ на сообщение, чтобы умыть собеседника|use this command in reply for message in order to wash the person you are talking to|

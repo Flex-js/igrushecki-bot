@@ -1,12 +1,14 @@
 const {STICKER_CLOWN, STICKER_ZHEST} = require('./stickerConstants');
+const IMAGE_CLOWN_DETECTED = require('./imageUrls');
 
 const commands = {
 	takoy_or: ctx => ctx.reply('😁'),
 	zhest: ctx => ctx.replyWithSticker(STICKER_ZHEST),
 	takoy_clown: ctx => ctx.replyWithSticker(STICKER_CLOWN),
+	clown_detected: ctx => ctx.replyWithPhoto(IMAGE_CLOWN_DETECTED),
 	wash: async ctx => {
 		const reply = ctx.update.message.reply_to_message;
-		
+
 		if (reply && !reply.from.is_bot) {
 			await ctx.reply('💦💦💦', {reply_to_message_id: reply.message_id});
 			ctx.reply('ПШШШШ ПШШШШ');
