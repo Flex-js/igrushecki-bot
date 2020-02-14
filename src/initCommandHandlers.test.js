@@ -23,6 +23,13 @@ test('takoy_clown()', () => {
 	expect(context.replyWithSticker).toHaveBeenCalledWith(STICKER_CLOWN);
 });
 
+test('clown_detected()', () => {
+	const context = getDefaultContext();
+	commands.clown_detected(context);
+
+	expect(context.replyWithPhoto).toHaveBeenCalledWith(IMAGE_CLOWN_DETECTED);
+});
+
 test('wash() returns message if it was not bot', async () => {
 	const context = getDefaultContext();
 	context.update.message.reply_to_message = {
