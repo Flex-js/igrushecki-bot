@@ -1,11 +1,10 @@
-const {STICKER_CLOWN, STICKER_ZHEST} = require('./stickerConstants');
-const IMAGE_CLOWN_DETECTED = require('./imageUrls');
+const {STICKER_CLOWN, STICKER_ZHEST, STICKER_CLOWN_DETECTED} = require('./stickerConstants');
 
 const commands = {
 	takoy_or: ctx => ctx.reply('😁'),
 	zhest: ctx => ctx.replyWithSticker(STICKER_ZHEST),
 	takoy_clown: ctx => ctx.replyWithSticker(STICKER_CLOWN),
-	clown_detected: ctx => ctx.replyWithPhoto(IMAGE_CLOWN_DETECTED),
+	clown_detected: ctx => ctx.replyWithSticker(STICKER_CLOWN_DETECTED),
 	wash: async ctx => {
 		const reply = ctx.update.message.reply_to_message;
 

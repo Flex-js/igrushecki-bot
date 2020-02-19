@@ -1,5 +1,5 @@
 const {commands} = require('./initCommandHandlers');
-const {STICKER_CLOWN, STICKER_ZHEST} = require('./stickerConstants');
+const {STICKER_CLOWN, STICKER_ZHEST, STICKER_CLOWN_DETECTED} = require('./stickerConstants');
 const {getDefaultContext} = require('../test-helpers');
 
 test('takoy_or()', () => {
@@ -27,7 +27,7 @@ test('clown_detected()', () => {
 	const context = getDefaultContext();
 	commands.clown_detected(context);
 
-	expect(context.replyWithPhoto).toHaveBeenCalledWith(IMAGE_CLOWN_DETECTED);
+	expect(context.replyWithSticker).toHaveBeenCalledWith(STICKER_CLOWN_DETECTED);
 });
 
 test('wash() returns message if it was not bot', async () => {
